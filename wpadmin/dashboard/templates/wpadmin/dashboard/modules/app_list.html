@@ -1,0 +1,33 @@
+{% extends "wpadmin/dashboard/module.html" %}
+{% load i18n %}
+{% block module_content %}
+    {% for child in module.children %}
+        <div class="app-{{child.name}} module">
+            <table>
+                <caption><a href="{{ child.url }}" class="section" title="{% blocktrans with name=child.name %}Models in the {{ name }} application{% endblocktrans %}">{% trans child.name %}</a>
+                </caption>
+                    {% for model in child.models %}
+                        <tr class="model-{{ model.title|lower }}">
+                        {% if model.admin_url %}
+                            <th scope="row"><a href="{{ model.admin_url }}">{{ model.title }}</a></th>
+                        {% else %}
+                            <th scope="row">{{ model.title }}</th>
+                        {% endif %}
+
+                        {% if model.add_url %}
+                            <td><a href="{{ model.add_url }}" class="addlink">{% trans 'Add' %}</a></td>
+                        {% else %}
+                            <td>&nbsp;</td>
+                        {% endif %}
+
+                        {% if model.admin_url %}
+                            <td><a href="{{ model.admin_url }}" class="changelink">{% trans 'Change' %}</a></td>
+                        {% else %}
+                            <td>&nbsp;</td>
+                        {% endif %}
+                        </tr>
+                    {% endfor %}
+            </table>
+        </div>
+    {% endfor %}
+{% endblock %}

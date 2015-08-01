@@ -1,0 +1,29 @@
+{% extends "admin/base_site.html" %}
+
+<!-- LOADING -->
+{% load i18n wpadmin_tags log wpadmin_dashboard_tags admin_static %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" />
+{% endblock %}
+<!-- JAVASCRIPTS -->
+{% block javascripts %}
+    {{ block.super }}
+    <script type="text/javascript" charset="utf-8">
+        (function($) {
+            $(document).ready(function() {
+                $("article#wpadmin-content .wpadmin-collapse").wpadmin_collapsible();
+            });
+        })(wpadmin.jQuery);
+    </script>
+{% endblock %}
+
+<!-- COLTYPE/BODYCLASS-- >
+{% block bodyclass %}dashboard{% endblock %}
+{% block content-class %}content-grid{% endblock %}
+
+{% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
+
+<!-- CONTENT -->
+{% block content %}
+{% wpadmin_render_dashboard %}
+{% endblock %}
+

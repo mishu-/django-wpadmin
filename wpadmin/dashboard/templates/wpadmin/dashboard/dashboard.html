@@ -1,0 +1,18 @@
+{% load i18n wpadmin_dashboard_tags %}
+
+{{ dashboard.media }}
+
+    <div id="content-main">
+        {% for module in dashboard.children %}
+            {% if module.column == 1 %}
+                {% wpadmin_render_dashboard_module module forloop.counter %}
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div id="content-related">
+        {% for module in dashboard.children %}
+            {% if module.column == 2 %}
+                {% wpadmin_render_dashboard_module module forloop.counter %}
+            {% endif %}
+        {% endfor %}
+    </div>

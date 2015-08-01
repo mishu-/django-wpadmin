@@ -1,0 +1,16 @@
+{% extends "wpadmin/dashboard/module.html" %}
+{% load i18n %}
+{% block module_content %}
+    <div class="app-{{module.title}} module">
+        <table>
+            <caption>{% trans module.title %}</caption>
+            {% for child in module.children %}
+            <tr class="model-{{ child.title|lower }}">
+                <th scope="row">
+                    <a class="{% if child.external %}wpadmin-link-external{% else %}wpadmin-link-internal{% endif %}" href="{{ child.url }}" {% if child.description %} title="{{ child.description }}"{% endif %}>{{ child.title }}</a>
+                </th>
+            </tr>
+            {% endfor %}
+	    </table>
+    </div>
+{% endblock %}

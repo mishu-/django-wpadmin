@@ -3,7 +3,10 @@ Menu utilities.
 """
 from fnmatch import fnmatch
 
-from django.utils.importlib import import_module
+try:
+    from django.utils.importlib import import_module
+except ImportError:
+    from importlib import import_module
 from django.core.urlresolvers import reverse
 
 from wpadmin.utils import (

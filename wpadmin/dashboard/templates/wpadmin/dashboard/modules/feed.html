@@ -1,0 +1,17 @@
+{% extends "wpadmin/dashboard/module.html" %}
+{% load i18n %}
+{% block module_content %}
+    <div class="app-{{module.title}} module">
+        <table>
+            <caption>{% trans module.title %}</caption>
+            {% for child in module.children %}
+            <tr class="model-{{ child.title|lower }}">
+                <th scope="row">
+                    {% if child.date %}<p class="wpadmin-font-color-quiet">{{ child.date|date }}&nbsp;</p>{% endif %}
+                    {% if child.warning %}<p class="wpadmin-font-color-error">{{ child.title }}</p>{% else %}<p><a class="wpadmin-link-external" href="{{ child.url }}">{{ child.title }}</a></p>{% endif %}
+                </th>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

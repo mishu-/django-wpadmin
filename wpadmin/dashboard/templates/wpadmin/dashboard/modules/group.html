@@ -1,0 +1,7 @@
+{% extends "wpadmin/dashboard/module.html" %}
+{% load i18n wpadmin_dashboard_tags %}
+{% block module_content %}
+    {% for sub_module in module.children %}
+        {% wpadmin_render_dashboard_module sub_module index forloop.counter %}
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "wpadmin/dashboard/module.html" %}
+{% load i18n %}
+{% block module_content %}
+    <div class="app-{{module.title}} module">
+        <table>
+            <caption>{% trans module.title %}</caption>
+            {% for model in module.children %}
+                <tr class="model-{{ model.title|lower }}">
+                    {% if model.admin_url %}
+                        <th scope="row"><a href="{{ model.admin_url }}">{{ model.title }}</a></th>
+                    {% else %}
+                        <th scope="row">{{ model.title }}</th>
+                    {% endif %}
+
+                    {% if model.add_url %}
+                        <td><a href="{{ model.add_url }}" class="addlink">{% trans 'Add' %}</a></td>
+                    {% else %}
+                        <td>&nbsp;</td>
+                    {% endif %}
+
+                    {% if model.admin_url %}
+                        <td><a href="{{ model.admin_url }}" class="changelink">{% trans 'Change' %}</a></td>
+                    {% else %}
+                        <td>&nbsp;</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

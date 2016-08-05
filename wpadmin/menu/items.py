@@ -119,7 +119,7 @@ class AppList(AppListElementMixin, MenuItem):
             except:
                 try:
                     app_label = model._meta.model_name
-                catch:
+                except:
                     app_label = ''
             if app_label not in apps:
                 apps[app_label] = {

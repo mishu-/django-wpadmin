@@ -85,9 +85,9 @@ class MenuItem(UserTestElementMixin):
         current_url = request.path
 
         return self.url == current_url or \
-               self.add_url == current_url or \
-               bool(re.match('^%s\d+/$' % self.url, current_url)) or \
-               len([c for c in self.children if c.is_selected(request)]) > 0
+            self.add_url == current_url or \
+            bool(re.match('^%s\d+/$' % self.url, current_url)) or \
+            len([c for c in self.children if c.is_selected(request)]) > 0
 
     def is_empty(self):
         """
@@ -114,40 +114,38 @@ class AppList(AppListElementMixin, MenuItem):
         for model, perms in items:
             if not perms['change'] and not perms['add']:
                 continue
-        import pdb; pdb.set_trace()
-        app_label = model._meta.app_config.verbose_name
-
-        if app_label not in apps:
-            apps[app_label] = {
-                'title': capfirst(_(app_label.title())),
-                'url': self._get_admin_app_list_url(model, context),
-                'models': []
-            }
-        apps[app_label]['models'].append({
-            'title': capfirst(model._meta.verbose_name_plural),
-            'url': perms['change'] and self._get_admin_change_url(
-                model, context),
-            'add_url': perms['add'] and self._get_admin_add_url(
-                model, context),
-            'description':
-            # Translators: This is already translated in Django
+            app_label = model._meta.app_config.verbose_name
+            if app_label not in apps:
+                apps[app_label] = {
+                    'title': capfirst(_(app_label.title())),
+                    'url': self._get_admin_app_list_url(model, context),
+                    'models': []
+                }
+            apps[app_label]['models'].append({
+                'title': capfirst(model._meta.verbose_name_plural),
+                'url': perms['change'] and self._get_admin_change_url(
+                    model, context),
+                'add_url': perms['add'] and self._get_admin_add_url(
+                    model, context),
+                'description':
+                # Translators: This is already translated in Django
                 perms['change'] and _("Change")
                 # Translators: This is already translated in Django
                 or _("No permission"),
-        })
+            })
 
-    apps_sorted = list(apps.keys())
-    apps_sorted.sort()
-    for app in sorted(apps.keys()):
-        app_dict = apps[app]
-        item = MenuItem(
-            title=app_dict['title'], url=app_dict['url'],
-            description=app_dict['title'])
-        # sort model list alphabetically
-        apps[app]['models'].sort(key=lambda x: x['title'])
-        for model_dict in apps[app]['models']:
-            item.children.append(MenuItem(**model_dict))
-        self.children.append(item)
+        apps_sorted = list(apps.keys())
+        apps_sorted.sort()
+        for app in sorted(apps.keys()):
+            app_dict = apps[app]
+            item = MenuItem(
+                title=app_dict['title'], url=app_dict['url'],
+                description=app_dict['title'])
+            # sort model list alphabetically
+            apps[app]['models'].sort(key=lambda x: x['title'])
+            for model_dict in apps[app]['models']:
+                item.children.append(MenuItem(**model_dict))
+            self.children.append(item)
 
 
 class ModelList(AppListElementMixin, MenuItem):
@@ -178,3 +176,4 @@ class UserTools(MenuItem):
     """
     """
     is_user_tools = True
+

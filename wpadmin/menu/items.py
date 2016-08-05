@@ -114,11 +114,8 @@ class AppList(AppListElementMixin, MenuItem):
         for model, perms in items:
             if not perms['change'] and not perms['add']:
                 continue
-
-        try:
-            app_label = model._meta.app_config.verbose_name
-        except:
-            app_label = "constance"
+        import pdb; pdb.set_trace()
+        app_label = model._meta.app_config.verbose_name
 
         if app_label not in apps:
             apps[app_label] = {

@@ -118,7 +118,8 @@ class AppList(AppListElementMixin, MenuItem):
         try:
             app_label = model._meta.app_config.verbose_name
         except:
-            app_label = ""
+            app_label = "constance"
+
         if app_label not in apps:
             apps[app_label] = {
                 'title': capfirst(_(app_label.title())),

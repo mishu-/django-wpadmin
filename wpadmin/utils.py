@@ -23,6 +23,8 @@ def get_admin_site_name(context):
     lang prefix
     * or second part fo path - between second and third slash
     """
+    if not context.get('request'):
+        return
     path = context.get('request').path
     lang = get_language_from_path(path)
     path = path.split('/')
